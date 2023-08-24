@@ -3,7 +3,6 @@
   hosts: all
   become: yes
     task:
-      jobs:
         - name: Add Docker GPG key
           commands:
             - sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
@@ -20,9 +19,8 @@
           commands:
             - sudo usermod -aG docker $USER
 
-  - name: Install Docker Compose
+- name: Install Docker Compose
     task:
-      jobs:
         - name: Download Docker Compose
           commands:
             - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -33,9 +31,8 @@
           commands:
             - sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-  - name: Verify installation
+- name: Verify installation
     task:
-      jobs:
         - name: Check Docker version
           commands:
             - docker --version
