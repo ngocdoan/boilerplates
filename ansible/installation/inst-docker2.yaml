@@ -1,5 +1,7 @@
-blocks:
-  - name: Install Docker
+---
+- name: install docker
+  hosts: all
+  become: yes
     task:
       jobs:
         - name: Add Docker GPG key
