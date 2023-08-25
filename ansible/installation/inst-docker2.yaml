@@ -2,40 +2,33 @@
 - name: install docker
   hosts: all
   become: yes
-    task:
-        - name: Add Docker GPG key
-          commands:
-            - sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-        - name: Add Docker repository
-          commands:
-            - echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-        - name: Update apt packages
-          commands:
-            - sudo apt-get update
-        - name: Install Docker
-          commands:
-            - sudo apt-get install -y docker-ce
-        - name: Add user to Docker group
-          commands:
-            - sudo usermod -aG docker $USER
-
-- name: Install Docker Compose
-    task:
-        - name: Download Docker Compose
-          commands:
-            - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        - name: Apply executable permissions to Docker Compose
-          commands:
-            - sudo chmod +x /usr/local/bin/docker-compose
-        - name: Create symbolic link for Docker Compose
-          commands:
-            - sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
-- name: Verify installation
-    task:
-        - name: Check Docker version
-          commands:
-            - docker --version
-        - name: Check Docker Compose version
-          commands:
-            - docker-compose --version
+  task:
+    - name: Add Docker GPG key
+      commands:
+        - sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    - name: Add Docker repository
+      commands:
+        - echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+    - name: Update apt packages
+      commands:
+        - sudo apt-get update -y
+    - name: Install Docker
+      commands:
+        - sudo apt-get install -y docker-ce
+    - name: Add user to Docker group
+      commands:
+    - name: Download Docker Compose
+      commands:
+        - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    - name: Apply executable permissions to Docker Compose
+      commands:
+        - sudo chmod +x /usr/local/bin/docker-compose
+    - name: Create symbolic link for Docker Compose
+      commands:
+        - sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    - name: Check Docker version
+      commands:
+        - docker --version
+    - name: Check Docker Compose version
+      commands:
+        - docker-compose --version
