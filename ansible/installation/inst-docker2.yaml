@@ -2,7 +2,7 @@
 - name: install docker
   hosts: all
   become: yes
-  task:
+  tasks:
     - name: Add Docker GPG key
       commands:
         - sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
